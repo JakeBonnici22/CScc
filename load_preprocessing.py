@@ -25,7 +25,6 @@ df = df[df.iloc[:,1] != 'P']
 '''remove rows with missing values in  nulls'''
 df = df[df.iloc[:, 1].notnull()]
 
-print(df.columns)
 
 '''remove entire row where 'Recurrence (0= No recurrence, 1= Recurrence)' = 2'''
 df = df[df['Recurrence (0= No recurrence, 1= Recurrence)'] != 2]
