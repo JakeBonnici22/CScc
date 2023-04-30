@@ -18,20 +18,18 @@ df.iloc[:,1] = df.iloc[:,1].str.strip()
 df = df[df.iloc[:,1] != 'P']
 
 
-'''get unique values of the second column'''
-# print(df.iloc[:,1].unique())
-
-
-'''get count of unique values of the second column'''
-# print(df.iloc[:,1].value_counts())
-
-
 '''display the entire dataframe without truncation'''
-pd.set_option('display.max_columns', None)
+# pd.set_option('display.max_columns', None)
 
-'''print rows with missing values in  nulls'''
-# print(df[df.iloc[:,1].isnull()])
 
 '''remove rows with missing values in  nulls'''
-df = df[df.iloc[:,1].notnull()]
-print(df)
+df = df[df.iloc[:, 1].notnull()]
+
+print(df.columns)
+
+'''remove entire row where 'Recurrence (0= No recurrence, 1= Recurrence)' = 2'''
+df = df[df['Recurrence (0= No recurrence, 1= Recurrence)'] != 2]
+
+'''Save file as csv'''
+df.to_csv('cSCC_data_clean.csv', index=False)
+
