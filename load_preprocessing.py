@@ -29,6 +29,7 @@ df = df[df.iloc[:, 1].notnull()]
 '''remove entire row where 'Recurrence (0= No recurrence, 1= Recurrence)' = 2'''
 df = df[df['Recurrence (0= No recurrence, 1= Recurrence)'] != 2]
 
+
 '''Save file as csv'''
 df.to_csv('cSCC_data_clean.csv', index=False)
 
