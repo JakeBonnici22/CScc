@@ -7,7 +7,7 @@ print(df['TumourDiamater (mm)'].unique())
 
 df = df[df['TumourDiamater (mm)'] != 'Mohs']
 df['TumourDiamater (mm)'] = pd.to_numeric(df['TumourDiamater (mm)'])
-
+print(df['TumourDiamater (mm)'].dtype)
 
 # predictors and response variable
 X = df[['Age', 'TumourDepth', 'Grade (1= Well differentiated, 2= moderately differentiated, 3= poorly differentiated)',
