@@ -2,4 +2,5 @@
 /shelf/
 /workspace.xml
 # CodeStream ignored files
-/../../CScc\.idea/codestream.xml
+/../../CScc\CScc_data.csv
+/../../CScc\.idea/cSCC_data_clean.csv
