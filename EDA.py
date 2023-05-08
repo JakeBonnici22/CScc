@@ -6,7 +6,25 @@ df = pd.read_csv(r'cSCC_data_clean.csv')
 print(df.columns)
 
 df["TumourStatus"] = df["TumourStatus"].str.strip()
+df["AnatomicalLoc"] = df["AnatomicalLoc"].str.strip()
 # df['TumourStatus'] = df['TumourStatus'].replace({'Primary': 0, 'Recurrence': 1})
+
+
+
+# Bar plot of the number of patients by sex
+sns.countplot(x="Sex", data=df)
+plt.title("Number of patients by sex")
+plt.show()
+
+
+
+# Create a figure with one subplot
+fig, ax = plt.subplots()
+sns.distplot(df["Age"], color="#8057a5", hist=True, label="Total", ax=ax)
+sns.distplot(df[df["Sex"]=="M"]["Age"], color="#0099b0", hist=True, label="Male", ax=ax)
+sns.distplot(df[df["Sex"]=="F"]["Age"], color="#f16c8b", hist=True, label="Female", ax=ax)
+ax.legend()
+plt.show()
 
 
 
@@ -35,27 +53,10 @@ plt.show()
 
 
 
-sns.countplot(x='LRD (1= local recurrence, 2= regional recurrence, 3= distant recurrence)', hue='Recurrence (0= No recurrence, 1= Recurrence)', data=df)
-plt.xlabel('LRD')
-plt.ylabel('Count')
-plt.show()
-
-
-
-# Bar plot of the number of patients by sex
-sns.countplot(x="Sex", data=df)
-plt.title("Number of patients by sex")
-plt.show()
-
-
-
-# Create a figure with one subplot
-fig, ax = plt.subplots()
-sns.distplot(df["Age"], color="#8057a5", hist=True, label="Total", ax=ax)
-sns.distplot(df[df["Sex"]=="M"]["Age"], color="#0099b0", hist=True, label="Male", ax=ax)
-sns.distplot(df[df["Sex"]=="F"]["Age"], color="#f16c8b", hist=True, label="Female", ax=ax)
-ax.legend()
-plt.show()
+# sns.countplot(x='LRD (1= local recurrence, 2= regional recurrence, 3= distant recurrence)', hue='Recurrence (0= No recurrence, 1= Recurrence)', data=df)
+# plt.xlabel('LRD')
+# plt.ylabel('Count')
+# plt.show()
 
 
 
@@ -87,6 +88,47 @@ plt.show()
 
 df = df[df['TumourDiamater (mm)'] != 'Mohs']
 df['TumourDiamater (mm)'] = pd.to_numeric(df['TumourDiamater (mm)'])
+
+
+colors = ['#4287f5', '#f54242']
+plt.figure(figsize=(10, 8))
+# Pie Chart
+recurrence_counts = df['Recurrence (0= No recurrence, 1= Recurrence)'].value_counts()
+plt.pie(recurrence_counts, labels=recurrence_counts.index, colors=colors, autopct='%1.1f%%',
+        startangle=90, wedgeprops={'edgecolor': 'white'})
+plt.title('Recurrence Distribution', fontsize=16, fontweight='bold')
+plt.axis('equal')  # Equal aspect ratio ensures circular pie chart
+plt.legend(fontsize=12)
+plt.tight_layout()
+plt.show()
+
+
+plt.figure(figsize=(10, 8))
+for label, color in zip(df['Death (0=No death, 1=Death)'].unique(), colors):
+    subset = df[df['Death (0=No death, 1=Death)'] == label]
+    plt.scatter(subset['TumourDiamater (mm)'], subset['TumourDepth'], color=color, alpha=0.7, label=label)
+plt.title('Tumor Diameter vs. Tumor Depth', fontsize=16, fontweight='bold')
+plt.xlabel('Tumor Diameter (mm)', fontsize=14)
+plt.ylabel('Tumor Depth', fontsize=14)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend(fontsize=12)
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()
+
+
+
+print(df['TumourDiamater (mm)'].unique())
+print(df['AnatomicalLoc'].unique())
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='AnatomicalLoc', y='TumourDiamater (mm)', data=df)
+plt.title('Distribution of Tumor Diameter by Anatomical Location')
+plt.xlabel('Anatomical Location')
+plt.ylabel('Tumor Diameter (mm)')
+plt.show()
+
+
 
 plt.boxplot([df[df['LRD (1= local recurrence, 2= regional recurrence, 3= distant recurrence)']==1]['TumourDiamater (mm)'],
             df[df['LRD (1= local recurrence, 2= regional recurrence, 3= distant recurrence)']==2]['TumourDiamater (mm)'],

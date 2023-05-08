@@ -5,8 +5,11 @@ from scipy.stats import shapiro
 
 
 df = pd.read_csv(r'cSCC_data_clean.csv')
-# print(df.columns)
+print(df.columns)
 
+# Summary statistics
+print(df.describe())
+print()
 # contingency table
 contingency_table = pd.crosstab(df['Sex'], df['Recurrence (0= No recurrence, 1= Recurrence)'])
 # chi-square test for independence
@@ -27,7 +30,7 @@ chi2, p, dof, expected = chi2_contingency(ct)
 # print the results
 print(f"Chi-squared: {chi2:.3f}, p-value: {p:.10f}")
 if p < 0.05:
-    print("There is a significant association between Death and Recurrence.")
+    print("There is a significant association between Recurrence and Death.")
 else:
     print("There is no significant association between Death and Recurrence.")
 
