@@ -1,9 +1,16 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import pandas_profiling
 
 df = pd.read_csv(r'cSCC_data_clean.csv')
 print(df.columns)
+
+
+# profile = pandas_profiling.ProfileReport(df)
+# profile.to_file("output.html")
+
+
 
 df["TumourStatus"] = df["TumourStatus"].str.strip()
 df["AnatomicalLoc"] = df["AnatomicalLoc"].str.strip()
@@ -20,17 +27,10 @@ plt.show()
 
 # Create a figure with one subplot
 fig, ax = plt.subplots()
-sns.distplot(df["Age"], color="#8057a5", hist=True, label="Total", ax=ax)
-sns.distplot(df[df["Sex"]=="M"]["Age"], color="#0099b0", hist=True, label="Male", ax=ax)
-sns.distplot(df[df["Sex"]=="F"]["Age"], color="#f16c8b", hist=True, label="Female", ax=ax)
+sns.histplot(df["Age"], color="#8057a5", kde=True, label="Total", ax=ax)
+sns.histplot(df[df["Sex"]=="M"]["Age"], color="#0099b0", kde=True, label="Male", ax=ax)
+sns.histplot(df[df["Sex"]=="F"]["Age"], color="#f16c8b", kde=True, label="Female", ax=ax)
 ax.legend()
-plt.show()
-
-
-
-recurrence_counts = df['Recurrence (0= No recurrence, 1= Recurrence)'].value_counts()
-plt.pie(recurrence_counts, labels=recurrence_counts.index, autopct='%1.1f%%')
-plt.title('Proportion of patients with and without recurrence')
 plt.show()
 
 
@@ -70,7 +70,6 @@ df_corr = df[['Sex', 'Age', 'TumourStatus',
        'Immunosuppression (0= not immunosupressed, 1= immunosuppressed)',
        'LRD (1= local recurrence, 2= regional recurrence, 3= distant recurrence)',
        'Recurrence (0= No recurrence, 1= Recurrence)']]
-# shorten the column labels
 df_corr.columns = ['Sex', 'Age', 'TumourStat', 'Death', 'AnatomLoc', 'Grade', 'TumourDiam', 'TumourDepth',
                    'ExcisionMargin', 'Lymphovascular', 'Perineural', 'SentinelLymphNode', 'Immunosuppression',
                    'LRD', 'Recurrence']
