@@ -4,7 +4,6 @@ import pandas as pd
 import pandas_profiling
 
 df = pd.read_csv(r'cSCC_data_clean.csv')
-print(df.columns)
 
 
 # profile = pandas_profiling.ProfileReport(df)
@@ -12,8 +11,8 @@ print(df.columns)
 
 
 
-df["TumourStatus"] = df["TumourStatus"].str.strip()
-df["AnatomicalLoc"] = df["AnatomicalLoc"].str.strip()
+# df["TumourStatus"] = df["TumourStatus"].str.strip()
+# df["AnatomicalLoc"] = df["AnatomicalLoc"].str.strip()
 # df['TumourStatus'] = df['TumourStatus'].replace({'Primary': 0, 'Recurrence': 1})
 
 

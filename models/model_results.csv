@@ -1,0 +1,52 @@
+Algorithm,Parameters,Classification Report,Best Model,Best Score
+SVM,"{'C': 10, 'gamma': 0.01, 'kernel': 'rbf'}","              precision    recall  f1-score   support
+
+         0.0       0.81      1.00      0.89      1062
+         1.0       0.00      0.00      0.00       252
+
+    accuracy                           0.81      1314
+   macro avg       0.40      0.50      0.45      1314
+weighted avg       0.65      0.81      0.72      1314
+","SVC(C=10, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma=0.01, kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=False)",0.820585997
+Random Forest,"{'max_depth': 5, 'min_samples_split': 10, 'n_estimators': 50}","              precision    recall  f1-score   support
+
+         0.0       0.81      1.00      0.89      1062
+         1.0       0.00      0.00      0.00       252
+
+    accuracy                           0.81      1314
+   macro avg       0.40      0.50      0.45      1314
+weighted avg       0.65      0.81      0.72      1314
+","RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+                       max_depth=5, max_features='auto', max_leaf_nodes=None,
+                       min_impurity_decrease=0.0, min_impurity_split=None,
+                       min_samples_leaf=1, min_samples_split=10,
+                       min_weight_fraction_leaf=0.0, n_estimators=50,
+                       n_jobs=None, oob_score=False, random_state=None,
+                       verbose=0, warm_start=False)",0.820585997
+Logistic Regression,"{'C': 0.1, 'penalty': 'l1', 'solver': 'liblinear'}","              precision    recall  f1-score   support
+
+         0.0       0.81      1.00      0.89      1062
+         1.0       0.00      0.00      0.00       252
+
+    accuracy                           0.81      1314
+   macro avg       0.40      0.50      0.45      1314
+weighted avg       0.65      0.81      0.72      1314
+","LogisticRegression(C=0.1, class_weight=None, dual=False, fit_intercept=True,
+                   intercept_scaling=1, l1_ratio=None, max_iter=100,
+                   multi_class='warn', n_jobs=None, penalty='l1',
+                   random_state=None, solver='liblinear', tol=0.0001, verbose=0,
+                   warm_start=False)",0.820395738
+K-Nearest Neighbors,"{'algorithm': 'auto', 'n_neighbors': 9, 'weights': 'uniform'}","              precision    recall  f1-score   support
+
+         0.0       0.81      0.99      0.89      1062
+         1.0       0.20      0.01      0.02       252
+
+    accuracy                           0.80      1314
+   macro avg       0.50      0.50      0.46      1314
+weighted avg       0.69      0.80      0.72      1314
+","KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+                     metric_params=None, n_jobs=None, n_neighbors=9, p=2,
+                     weights='uniform')",0.811453577

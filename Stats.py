@@ -5,7 +5,6 @@ from scipy.stats import shapiro
 
 
 df = pd.read_csv(r'cSCC_data_clean.csv')
-print(df.columns)
 
 # Summary statistics
 print(df.describe())
