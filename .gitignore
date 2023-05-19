@@ -1,0 +1,9 @@
+CScc_data.csv
+cSCC_data_clean.csv
+Decision Tree_best_model.pkl
+Gradient Boosting_best_model.pkl
+K-Nearest Neighbors_best_model.pkl
+Logistic Regression_best_model.pkl
+Random Forest_best_model.pkl
+SVM_best_model.pkl
+XGBoost_best_model.pkl
