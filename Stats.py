@@ -33,7 +33,7 @@ if p < 0.05:
 else:
     print("There is no significant association between Death and Recurrence.")
 
-print()
+
 
 # create a contingency table
 contingency_table = pd.crosstab(df['ExcisionMargin (mm)'], df['Recurrence (0= No recurrence, 1= Recurrence)'])
@@ -57,7 +57,6 @@ stat, p = shapiro(no_recurrence)
 print(f'No Recurrence : {stat:.3f}, p={p:.10f}')
 
 print()
-
 
 # t-test for comparing the means of the two groups
 t, pval = stats.ttest_ind(recurrence, no_recurrence)
