@@ -7,6 +7,7 @@ import pre_ml1
 results_df = libs.pd.DataFrame(columns=['Algorithm', 'Parameters', 'Best Score', 'Best Model', 'Accuracy', 'Precision', 'Recall',
                                    'F1-Score', 'AUC-ROC', 'AUC-PR', 'Classification Report'])
 
+
 for algo in ml_algos.algorithms:
 
     pipeline = libs.Pipeline([
@@ -14,9 +15,6 @@ for algo in ml_algos.algorithms:
         ('selector', libs.SelectKBest(score_func=libs.mutual_info_classif, k=5)),
         ('model', algo['model'])
     ])
-
-    scores = libs.cross_val_score(pipeline, pre_ml1.X_train, pre_ml1.y_train, cv=5, scoring='roc_auc')
-    mean_score = scores.mean()
 
     grid_search = libs.GridSearchCV(pipeline, param_grid=algo['param_grid'], cv=5, scoring='roc_auc', verbose=3)
     grid_search.fit(pre_ml1.X_train, pre_ml1.y_train)
@@ -35,6 +33,9 @@ for algo in ml_algos.algorithms:
     auc_roc = libs.roc_auc_score(pre_ml1.y_test, y_pred)
     auc_pr = libs.average_precision_score(pre_ml1.y_test, y_pred)
 
+    report_filename = f'{model_name}_classification_report.txt'
+    with open(report_filename, 'w') as file:
+        file.write(report)
 
     results_df = results_df.append({
         'Algorithm': model_name,
@@ -47,7 +48,7 @@ for algo in ml_algos.algorithms:
         'F1-Score': f1,
         'AUC-ROC': auc_roc,
         'AUC-PR': auc_pr,
-        'Classification Report': report_filename,
+        'Classification Report': report_filename
     }, ignore_index=True)
 
     print(f"Predictions for {model_name}:")
@@ -57,24 +58,20 @@ for algo in ml_algos.algorithms:
     print(f"Classification report for {model_name}:")
     print(report)
 
-# Create a directory to store the classification report files
+
 if not libs.os.path.exists('modelswpipe/reports'):
     libs.os.makedirs('modelswpipe/reports')
 
-
-# Save the classification reports and the results dataframe
 for index, row in results_df.iterrows():
     model_name = row['Algorithm']
     report_filename = f'modelswpipe/reports/{model_name}_classification_report.txt'
 
-    # Get the actual classification report text
     report_text = open(row['Classification Report'], 'r').read()
 
-    # Write the actual classification report text to the file
     with open(report_filename, 'w') as file:
         file.write(report_text)
 
-    # Update the 'Classification Report' column in the results dataframe
-    row['Classification Report'] = report_filename
+    results_df.at[index, 'Classification Report'] = report_filename
 
 results_df.to_csv('modelswpipe/model_results.csv', index=False)
+

@@ -67,3 +67,5 @@ algorithms = [
         }
     }
 ]
+
+print("Algorithms defined")
