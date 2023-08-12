@@ -1,2 +1,7 @@
 .idea
-
+CScc_data.csv
+cSCC_data_clean.csv
+=======
+*.csv
+**/*.pkl
+*.pkl
